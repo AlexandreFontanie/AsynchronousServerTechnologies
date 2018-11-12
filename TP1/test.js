@@ -1,16 +1,22 @@
 // Import a module
 const http = require('http')
 
-// Declare an http server
-http.createServer(function (req, res) {
+const content = '<!DOCTYPE html>' +
+'<html>' +
+'    <head>' +
+'        <meta charset="utf-8" />' +
+'        <title>ECE AST</title>' +
+'    </head>' +
+'    <body>' +
+'         <p>Hello World !</p>' +
+'    </body>' +
+'</html>'
 
-  // Write a response header
-  res.writeHead(200, {'Content-Type': 'text/plain'});
+const serverHandle = function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.write(content);
+  res.end();
+}
 
-  // Write a response content
-  res.end('Hello World\n');
-
-// Start the server
-}).listen(8080)
-
-// curl localhost:8080 or go to http://localhost:8080
+const server = http.createServer(serverHandle);
+server.listen(8080)
