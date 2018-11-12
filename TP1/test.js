@@ -2,6 +2,7 @@
 const http = require('http')
 // Import Node url module
 const url = require('url')
+const qs = require('querystring')
 
 const content = '<!DOCTYPE html>' +
 '<html>' +
@@ -17,6 +18,8 @@ const content = '<!DOCTYPE html>' +
 const serverHandle = function (req, res) {
   const path = url.parse(req.url).pathname;
   console.log(path);
+  const queryParams = qs.parse(url.parse(req.url).query);
+  console.log(queryParams);
   res.writeHead(200, {'Content-Type': 'text/html'});
   res.write(content);
   res.end();
