@@ -14,7 +14,7 @@ node index.js
 ```
 
 ### Les 3 routes de l'applications sont :  
-- <a href="http://localhost:8080/" target="_blank">localhost:8080/</a>
+- [localhost:8080/](http://localhost:8080/" target="_blank)
 - [localhost:8080/hello?name=alexandre](http://localhost:8080/hello?name=alexandre  target="_blank")
 - [localhost:8080/hello?name=prenom](http://localhost:8080/hello?name=prenom" target="_blank)
 
