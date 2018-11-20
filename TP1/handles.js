@@ -17,7 +17,7 @@ module.exports = {
     } else if (path === '/hello'  && 'name' in params) {
       if (params.name === 'alexandre')
         {
-          res.write('Mon nom est Alexandre et je susi en 5eme annee a ECE Paris, ce TP correspond au cours Asynchronous Server Technologies')
+          res.write('Mon nom est Alexandre et je suis en 5eme annee a ECE Paris, ce TP1 correspond au cours Asynchronous Server Technologies')
         } else {
           res.write('Bonjour ' + params['name'])
         }

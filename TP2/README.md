@@ -1,4 +1,4 @@
-# Asynchronous Server Technologies TP1
+# Asynchronous Server Technologies TP2
 ## Alexandre Fontanié
 
 ## Introduction
@@ -7,7 +7,7 @@ Ce git contient le TP1 du cours Asynchronous Server Technologies, qui a pour but
 
 ## Instructions
 
-### Pour lancer le serveur du TP1 :  
+### Pour lancer le serveur du TP2 :  
 Ouvrir la console dans le dossier du TP1 et utiliser la commande:
 ```
 node index.js

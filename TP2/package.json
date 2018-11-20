@@ -4,6 +4,7 @@
   "description": "Paquet pour le TP2 Asynchronous Server Technologies",
   "main": "index.js",
   "dependencies": {
+    "express": "^4.16.4",
     "nodemon": "^1.18.6"
   },
   "devDependencies": {},
