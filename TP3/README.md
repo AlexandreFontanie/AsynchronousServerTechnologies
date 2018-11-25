@@ -1,14 +1,14 @@
-# Asynchronous Server Technologies TP2
+# Asynchronous Server Technologies TP3
 ## Alexandre Fontanié
 
 ## Introduction
-Ce git contient le TP2 du cours Asynchronous Server Technologies, qui a pour but de nous familiariser avec les routes et queries.
+Ce git contient le TP3 du cours Asynchronous Server Technologies, qui a pour but de nous familiariser avec les routes et queries.
 
 
 ## Instructions
 
-### Pour lancer le serveur du TP2 :  
-Ouvrir la console dans le dossier du TP2 et utiliser la commande:
+### Pour lancer le serveur du TP3 :  
+Ouvrir la console dans le dossier du TP3 et utiliser la commande:
 ```
 node index.js
 ```
