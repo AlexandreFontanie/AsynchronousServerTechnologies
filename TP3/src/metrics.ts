@@ -19,6 +19,7 @@ export class MetricsHandler {
   }
 
   public saveMetric(
+    username: string,
     key: string,
     metric: Metric[],
     callback: (error: Error | null) => void
@@ -27,7 +28,7 @@ export class MetricsHandler {
     stream.on("error", callback);
     stream.on("close", callback);
 
-    met.forEach(m => {
+    metric.forEach(m => {
       stream.write({ key: `metric:${key}:${m.timestamp}`, value: m.value });
     });
 
@@ -35,6 +36,7 @@ export class MetricsHandler {
   }
 
   public getMetric(
+    username: string,
     key: string,
     callback: (err: Error | null, result?: Metric[]) => void
   ) {
@@ -47,19 +49,19 @@ export class MetricsHandler {
         callback(null, metric);
       })
       .on("data", (data: any) => {
-        const [, k, timestamp] = data.key.split(":");
+        const [, u, k, timestamp] = data.key.split(":");
         const value = data.value;
-        if (key != k) {
+        if (username != u || key != k) {
           console.log(`Level DB error: ${data} does not match key ${key}`);
         }
         else {
           met.push(new Metric(timestamp, value));
         }
-
       });
   }
 
   public deleteMetric(
+    username: dtring,
     key: string,
     callback: (err: Error | null, result?: Metric[]) => void
   ) {
@@ -72,9 +74,9 @@ export class MetricsHandler {
         callback(null, metric);
       })
       .on("data", (data: any) => {
-        const [, k, timestamp] = data.key.split(":");
+        const [, u, k, timestamp] = data.key.split(":");
         const value = data.value;
-        if (key != k) {
+        if (username != u || key != k) {
           console.log(`Level DB error: ${data} does not match key ${key}`);
         }
         else {
@@ -83,7 +85,42 @@ export class MetricsHandler {
             console.log(err);
           });
         }
-
       });
   }
+
+  public updateMetric(
+    username: string,
+    key: string,
+    metric: Metric,
+    callback: (error: Error | null) => void
+  ) {
+
+    let metricsToUpdate;
+    this.getMetric(username, key, (err: Error | null, result?: Metric[]) => {
+      if (err)
+        callback(err)
+      else {
+        metricsToUpdate = result;
+        for(const i in metricsToUpdate) {
+          if(metricsToUpdate[i].timestamp === metric.timestamp)
+          {
+            metricsToUpdate.splice(i, 1, metric);
+          }
+        }
+        this.deleteMetric(username, key, (err: Error | null) => {
+          if (err)
+            callback(err)
+            else {
+              this.saveMetric(username, key, metricsToUpdate, (err: Error | null) => {
+              if (err)
+                callback(err)
+              else
+                callback(null);
+              });
+            }
+          });
+        }
+      });
+    }
+
 }
