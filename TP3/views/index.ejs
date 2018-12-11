@@ -1,3 +1,147 @@
-<button class="btn btn-danger" href="/logout" onClick='document.location.href="/logout"'>
-  Logout
-</button>
+<!DOCTYPE html>
+<html>
+<head>
+  <% include partials/head %>
+</head>
+
+<body>
+  <div>
+    <button class="btn btn-danger" href="/logout" onClick='document.location.href="/logout"'>
+      Logout
+    </button>
+  </div>
+
+  <div>
+
+    <div>
+      <button class="btn btn-success" id="showMetrics">
+        Show metrics
+      </button>
+      <button class="btn btn-success" id="addMetrics">
+        Add metrics
+      </button>
+    </div>
+
+    <div id="displayMetrics"></div>
+
+    <div id="addMetricsModal">
+      <h2 id="exampleModalLabel">Add metrics</h2>
+      <button type="button" class="close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <form action=<%- `/metrics/${name}` %> method="post">
+        <div>
+          <label for="form_key">Key : </label>
+          <input id="form_key" type="number" name="key" value="0"/>
+        </div>
+        <div>
+          <label for="form_value">Value : </label>
+          <input id="form_value" type="number" name="value" value="0"/>
+        </div>
+        <button type="button" class="btn btn-danger">Cancel</button>
+        <button class="btn btn-primary" type="submit" value="Submit">Confirm</button>
+      </form>
+    </div>
+
+  </div>
+</body>
+
+<script>
+  $('#showMetrics').click((e) => {
+    e.preventDefault()
+    const user = "<%- name %>"
+    $.getJSON(`metrics/${user}`, {}, (data) => {
+      let userMetrics = [];
+      for(const i in data[0]) {
+        userMetrics.push(
+          `<h2>Metric ${i}</h2>
+            <div>
+              <button class="btn btn-danger" type="button" value="${i}" onclick="deleteMetrics(this.value)">
+                Delete metric
+              </button>
+            </div>
+
+            <div>
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+            `
+            );
+        data[0][i].map(d => {
+          userMetrics.push(
+            `<tr>
+              <td>${d.timestamp}</td>
+              <td>${d.value}</td>
+            </tr>`);
+        });
+        userMetrics.push(
+          `</tbody>
+          </table>
+          </div>
+          <div>
+            <canvas id="${i}" width="300" height="200">
+            </canvas>
+          </div>`);
+      }
+      $("#displayMetrics").empty()
+      $("#displayMetrics").append(userMetrics.join("\n"))
+
+      for(const i in data[0]) {
+        let dataName = [];
+        let dataValue = [];
+        for(const j in data[0][i]) {
+          dataName.push(data[0][i][j].timestamp);
+          dataName.push(data[0][i][j].value);
+        }
+
+        var content = document.getElementById(`${i}`).getContext('2d');
+        var chart = new Chart(content, {
+            type: 'bar',
+            data: {
+                labels: dataName,
+                datasets: [{
+                    label: 'metrics',
+                    data: dataValue,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+      }
+    })
+  });
+
+  function deleteMetrics(i) {
+    const popup = confirm("Do you really want to delete the metric ?");
+    if(popup == true) {
+      const user = "<%- name %>"
+      $.ajax({
+        url: `/metrics/${user}/${i}`,
+        type: 'DELETE',
+        success: function(result) {
+          $("#displayMetrics").empty()
+          $("#displayMetrics").append(userMetrics.join("\n"))
+        }
+      });
+    }
+  }
+
+</script>
+
+</html>
