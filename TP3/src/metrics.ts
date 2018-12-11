@@ -18,13 +18,12 @@ export class MetricsHandler {
     this.db = LevelDb.open(dbPath);
   }
 
-  public save(
+  public saveMetric(
     key: string,
-    met: Metric[],
+    metric: Metric[],
     callback: (error: Error | null) => void
   ) {
     const stream = WriteStream(this.db);
-
     stream.on("error", callback);
     stream.on("close", callback);
 
@@ -35,17 +34,17 @@ export class MetricsHandler {
     stream.end();
   }
 
-  public get(
+  public getMetric(
     key: string,
     callback: (err: Error | null, result?: Metric[]) => void
   ) {
     const stream = this.db.createReadStream();
-    var met: Metric[] = [];
+    var metric: Metric[] = [];
 
     stream
       .on("error", callback)
       .on("end", (err: Error) => {
-        callback(null, met);
+        callback(null, metric);
       })
       .on("data", (data: any) => {
         const [, k, timestamp] = data.key.split(":");
@@ -60,17 +59,17 @@ export class MetricsHandler {
       });
   }
 
-  public delete(
+  public deleteMetric(
     key: string,
     callback: (err: Error | null, result?: Metric[]) => void
   ) {
     const stream = this.db.createReadStream();
-    var met: Metric[] = [];
+    var metric: Metric[] = [];
 
     stream
       .on("error", callback)
       .on("end", (err: Error) => {
-        callback(null, met);
+        callback(null, metric);
       })
       .on("data", (data: any) => {
         const [, k, timestamp] = data.key.split(":");
