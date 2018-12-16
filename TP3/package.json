@@ -1,5 +1,5 @@
 {
-  "name": "tp2",
+  "name": "tp3",
   "version": "1.0.0",
   "description": "Paquet pour le TP2 Asynchronous Server Technologies",
   "main": "index.js",
@@ -12,7 +12,6 @@
     "express-session": "^1.15.6",
     "level": "^4.0.0",
     "level-session-store": "^2.1.0",
-    "level-ws": "^1.0.0",
     "leveldown": "^4.0.1",
     "levelup": "^3.1.1",
     "typescript": "^3.1.6"
@@ -24,6 +23,7 @@
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.9",
     "chai": "^4.2.0",
+    "level-ws": "^1.0.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.6",
     "ts-node": "^7.0.1",
@@ -33,7 +33,8 @@
     "test": "./node_modules/.bin/mocha -r ts-node/register src/**/*.test.ts",
     "build": "./node_modules/.bin/tsc -p tsconfig.json",
     "start": "./node_modules/.bin/ts-node src/server.ts",
-    "dev": "./node_modules/.bin/nodemon"
+    "dev": "./node_modules/.bin/nodemon",
+    "populate": "./node_modules/.bin/ts-node bin/populate.ts"
   },
   "repository": {
     "type": "git",

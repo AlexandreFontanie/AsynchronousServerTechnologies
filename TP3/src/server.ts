@@ -7,7 +7,6 @@ import morgan = require("morgan");
 import { UserHandler, User } from './users';
 import path = require("path");
 
-
 const dbUser: UserHandler = new UserHandler('./db/users');
 const dbMetric: MetricsHandler = new MetricsHandler("./db/metrics");
 const LevelStore = levelSession(session);
@@ -55,7 +54,7 @@ authRouter.post('/login', (req: any, res: any, next: any) => {
       res.redirect('/')
     }
   })
-};
+});
 
   authRouter.post('/signup', (req: any, res: any, next: any) => {
     dbUser.get(req.body.username, function (err: Error | null, result?: User) {
@@ -74,7 +73,7 @@ authRouter.post('/login', (req: any, res: any, next: any) => {
         })
       }
     })
-  })
+  });
 
   app.use(authRouter);
 
@@ -130,7 +129,7 @@ const authCheck = function (req: any, res: any, next: any) {
 
 app.get('/', authCheck, (req: any, res: any) => {
   res.render('index', { name: req.session.username })
-})
+});
 
 
 // On applique le même principe pour Metrics

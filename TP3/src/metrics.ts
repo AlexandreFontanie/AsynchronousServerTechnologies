@@ -55,7 +55,7 @@ export class MetricsHandler {
           console.log(`Level DB error: ${data} does not match key ${key}`);
         }
         else {
-          met.push(new Metric(timestamp, value));
+          metric.push(new Metric(timestamp, value));
         }
       });
   }
