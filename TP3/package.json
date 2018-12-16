@@ -4,6 +4,9 @@
   "description": "Paquet pour le TP2 Asynchronous Server Technologies",
   "main": "index.js",
   "dependencies": {
+    "bcrypt": "^3.0.2",
+    "bootstrap": "^4.1.3",
+    "chartjs": "^0.3.24",
     "body-parser": "^1.18.3",
     "del": "^3.0.0",
     "ejs": "^2.6.1",
@@ -12,9 +15,12 @@
     "express-session": "^1.15.6",
     "level": "^4.0.0",
     "level-session-store": "^2.1.0",
+    "level-ws": "^1.0.0",
     "leveldown": "^4.0.1",
     "levelup": "^3.1.1",
-    "typescript": "^3.1.6"
+    "typescript": "^3.1.6",
+    "morgan": "^1.9.1",
+    "jquery": "^3.3.1"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
@@ -23,7 +29,6 @@
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.9",
     "chai": "^4.2.0",
-    "level-ws": "^1.0.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.6",
     "ts-node": "^7.0.1",
