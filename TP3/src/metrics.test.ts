@@ -6,6 +6,8 @@ import { LevelDb } from "./leveldb";
 const dbPath: string = 'db_test/metrics';
 var dbMet: MetricsHandler;
 
+
+
 describe('Metrics', function () {
   before(function () {
     LevelDb.clear(dbPath)
@@ -16,21 +18,11 @@ describe('Metrics', function () {
     dbMet.db.close()
   })
 
-  describe('#get', function () {
-    it('should get empty array on non existing group', function (done) {
-      dbMet.get("user", "0", function (err: Error | null, result?: Metric[]) {
-        expect(err).to.be.null
-        expect(result).to.not.be.undefined
-        expect(result).to.be.empty
-        done()
-      })
-    })
-  })
 
-  describe('#save', function () {
-    it('should save data', function (done) {
+  describe('#saveMetric', function () {
+    it('should save a Metric to a User', function (done) {
       const met = [new Metric(`${new Date('2013-11-04 14:00 UTC').getTime()}`, 12)];
-      dbMet.save("user", "0", met, function (err: Error | null) {
+      dbMet.saveMetric("user", "0", met, function (err: Error | null) {
         done()
       })
     })
@@ -43,29 +35,43 @@ describe('Metrics', function () {
         done()
       })
     })
-  })
+  });
 
 
-
-  describe('#delete', function () {
-    it('should delete data', function (done) {
-      const met = new Metric(`${new Date('2013-11-04 14:00 UTC').getTime()}`, 12);
-      dbMet.remove("user", "0", function (err: Error | null) {
-        expect(err).to.be.null
+    describe('#get', function () {
+      it('should get empty array on non existing group', function (done) {
         dbMet.get("user", "0", function (err: Error | null, result?: Metric[]) {
           expect(err).to.be.null
-          expect(result).to.be.an("array")
+          expect(result).to.not.be.undefined
           expect(result).to.be.empty
           done()
         })
       })
     })
 
-    it('should not fail if data does not exist', function (done) {
-      dbMet.remove("user", "0", function (err: Error | null) {
-        expect(err).to.be.null
-        done()
+
+
+
+
+    describe('#delete', function () {
+      it('should delete data', function (done) {
+        const met = new Metric(`${new Date('2013-11-04 14:00 UTC').getTime()}`, 12);
+        dbMet.remove("user", "0", function (err: Error | null) {
+          expect(err).to.be.null
+          dbMet.get("user", "0", function (err: Error | null, result?: Metric[]) {
+            expect(err).to.be.null
+            expect(result).to.be.an("array")
+            expect(result).to.be.empty
+            done()
+          })
+        })
+      })
+
+      it('should not fail if data does not exist', function (done) {
+        dbMet.remove("user", "0", function (err: Error | null) {
+          expect(err).to.be.null
+          done()
+        })
       })
     })
   })
-})
