@@ -1,31 +1,31 @@
-# Asynchronous Server Technologies TP3
+# Asynchronous Server Technologies TP3 projet
 ## Alexandre Fontanié
 
 ## Introduction
-Ce git contient le TP3 du cours Asynchronous Server Technologies, qui a pour but de nous familiariser avec les routes et queries.
+Ce git contient le TP3/projet du cours Asynchronous Server Technologiesà l'ECE Paris.
 
 
 ## Instructions
 
 ### Pour lancer le serveur du TP3 :  
-Ouvrir la console dans le dossier du TP3 et utiliser la commande:
+Ouvrir la console dans le dossier du TP3 et utiliser la commande pour installer :
 ```
-node index.js
+npm i
+```
+Puis pour créer la base de données :
+```
+npm run populate
+```
+Puis pour lancer le projet :
+```
+npm start
 ```
 
-### Les 3 routes de l'applications sont :  
-- [localhost:8080/](http://localhost:8080/)
-- [localhost:8080/hello/alexandre](http://localhost:8080/hello/alexandre)
-- [localhost:8080/hello/prenom](http://localhost:8080/hello/prenom")
-
-### Page home  
-La page http://localhost:8080/ racine décrit le fonctionnement du serveur.
-
-### Page Hello alexandre
-La page http://localhost:8080/hello/alexandre affiche une breve présentation de moi-même.
-
-### Page Hello
-La page http://localhost:8080/hello/prenom salut l'utilisateur par son prenom.
-
-### Autre page
-Toute autre page affiche une erreur 404 et un message "Page introuvable".
+### Lancement du projet  
+- Une page vers [localhost:8080/](http://localhost:8080/) s'ouvre
+- Pour se connecter, il suffit de rentrer les identifiants suivants : login "test1" et mot de passe "test1"
+- On peut ensuite se déplacer à l'affichage des données en cliquant sur le bouton
+- Un bouton permet de se déconnecter
+- Et finalement se connecter au second compte, les identifiants suivants : login "test2" et mot de passe "test2"
+- Un dernier test est de créer soit même un utilisateur avec la fonction signup
+- Il est également possible d'ajouter/supprimer des metrics aux utilisateurs et de faire de même avec les utilisateurs
